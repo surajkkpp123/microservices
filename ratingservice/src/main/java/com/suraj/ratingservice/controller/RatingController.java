@@ -34,4 +34,9 @@ public class RatingController {
     public ResponseEntity<List<Rating>> getRatingsByHotelId(@PathVariable String hotelId){
         return ResponseEntity.ok(ratingService.getRatingsByHotelId(hotelId));
     }
+
+    @PutMapping("/{ratingId}")
+    public ResponseEntity<Rating> updateRating(@RequestBody Rating rating){
+        return ResponseEntity.ok(ratingService.updateRating(rating));
+    }
 }
