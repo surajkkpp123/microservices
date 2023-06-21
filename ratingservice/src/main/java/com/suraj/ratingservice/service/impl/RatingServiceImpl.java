@@ -32,4 +32,13 @@ public class RatingServiceImpl implements RatingService {
     public List<Rating> getRatingsByHotelId(String hotelId) {
         return ratingRepository.findByHotelId(hotelId);
     }
+
+    @Override
+    public Rating updateRating(Rating updateRating) {
+        Rating rating = ratingRepository.findById(updateRating.getRatingId()).orElseThrow(
+                       ()-> new RuntimeException("Rating not found with rating id - "+updateRating.getRatingId()));
+        rating.setRating(updateRating.getRating());
+        rating.setFeedback(updateRating.getFeedback());
+        return ratingRepository.save(rating);
+    }
 }
