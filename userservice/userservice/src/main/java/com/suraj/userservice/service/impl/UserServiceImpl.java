@@ -27,8 +27,6 @@ public class UserServiceImpl implements UserService {
     private RatingServiceProxy ratingServiceProxy;
     @Autowired
     private HotelServiceProxy hotelServiceProxy;
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Override
     public User saveUser(User user) {
@@ -44,11 +42,13 @@ public class UserServiceImpl implements UserService {
     public User getUser(String userId) {
         User user = userRepository.findById(userId).orElseThrow(
                    ()->new ResourceNotFoundException("Resource not found with id - "+userId));
+        //calling rating service
         ResponseEntity<List<Rating>> response = ratingServiceProxy.getRatingsByUserId(user.getUserId());
 
         if (response.getStatusCode() == HttpStatus.OK) {
            List<Rating> ratings = response.getBody().stream().map(rating -> {
 
+               //calling hotel-service
                 ResponseEntity<Hotel> hotelResponseEntity = hotelServiceProxy.getHotel(rating.getHotelId());
 
                 return rating;
