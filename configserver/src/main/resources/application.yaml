@@ -10,6 +10,7 @@ spring:
          git:
            uri: https://github.com/surajkkpp123/microservices.git
            clone-on-start: true
+           default-label: master
 
 
 eureka:
