@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: config-server
+  cloud:
+     config:
+       server:
+         git:
+           uri: https://github.com/surajkkpp123/microservices.git
+           clone-on-start: true
 
 
 eureka:
